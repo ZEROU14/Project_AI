@@ -19,23 +19,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-<<<<<<< HEAD
-from django.urls import path,include
 
+from django.urls import path,include
+from debug_toolbar.toolbar import debug_toolbar_urls
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('Sub/', include('pages.urls'))
-]
-=======
-from django.urls import path, include
-from debug_toolbar.toolbar import debug_toolbar_urls
-
-urlpatterns = [
-    # path('', include('core.urls')),
+    path('Sub/', include('pages.urls')),
     path('admin/', admin.site.urls),
     path('api/auth/', include('djoser.urls')),
     path('api/auth/', include('djoser.urls.jwt')),
     path('accounts/', include('allauth.urls')),
     # path('api/auth/social/', include('social_django.urls', namespace='social')),
 ] + debug_toolbar_urls()
->>>>>>> 79e91d3155515e220788e7cf27b0abaae48a1637
