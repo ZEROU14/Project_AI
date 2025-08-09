@@ -1,6 +1,28 @@
+<<<<<<< HEAD
 venv/
 *.pyc
 __pycache__/
 *.sqlite3
 media/
 static/
+=======
+pycache/
+*.py[cod]
+*.sqlite3
+*.log
+*.pot
+*.pyc
+
+.env
+
+/static/
+/media/
+
+db.sqlite3
+venv/
+
+.idea/
+.vscode/
+
+*.bak
+>>>>>>> 79e91d3155515e220788e7cf27b0abaae48a1637
