@@ -31,3 +31,41 @@ class subscriptionOrder(models.Model):
 
     def __str__(self):
         return f'{self.user.username} - {self.plan.title} - {self.status}'
+
+
+class Converstations(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_NODEL,
+        on_delete=models.CASCADE,
+        related_name='converstations'
+    )
+    title = models.CharField(max_length=255,blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    upadeted_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return [
+            {"role": msg.role, "content" : msg.content}
+            for msg in self.messages.order_by("created_at")
+        ]
+    
+
+class Messages(models.Model):
+    ROLE_CHOICES = [
+        ('system','System'),
+        ('user', "User"),
+        ('assistant', "Assistant"),
+        ('tool',"Tool") 
+    ]
+
+    converstations = models.ForeignKey(
+        on_delete=models.CASCADE,
+        related_name='messages',
+    )
+    role = models.CharField(max_length=50 ,choices=ROLE_CHOICES)
+    content= models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+    def __str__(self):
+        return f"{self.role} : {self.content[:50]}"
