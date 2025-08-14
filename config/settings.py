@@ -169,7 +169,7 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = env('CLIENT_ID')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = env('CLIENT_SECRET')
 SOCIAL_AUTH_RAISE_EXCEPTIONS = False
 
-SOCIAL_AUTH_GOOGLE_OAUTH_SCOPE = [
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
     'https://www.googleapis.com/auth/userinfo.email',
     'https://www.googleapis.com/auth/userinfo.profile',
 ]
