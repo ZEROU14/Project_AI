@@ -21,21 +21,21 @@ class subscriptionOrder(models.Model):
         related_name='subscription'
     )
 
-    plan = models.ForeignKey(subscription,on_delete=models.SET_NULL)
+    plan = models.ForeignKey(subscription,on_delete=models.CASCADE)
     stripe_subscription_id = models.CharField(max_length=255,unique=True)
-    status = models.CharField(choices=STATUS_CHOICES,default=STATUS_CHOICES[1])
+    status = models.CharField(choices=STATUS_CHOICES,default=STATUS_CHOICES[1],max_length=10)
     current_period_end = models.DateTimeField()
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    def __str__(self):
-        return f'{self.user.username} - {self.plan.title} - {self.status}'
+    # def __str__(self):
+    #     return f'{self.user.username} - {self.plan.title} - {self.status}'
 
 
 class Converstations(models.Model):
     user = models.ForeignKey(
-        settings.AUTH_USER_NODEL,
+        settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name='converstations'
     )
@@ -43,11 +43,11 @@ class Converstations(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     upadeted_at = models.DateTimeField(auto_now=True)
 
-    def __str__(self):
-        return [
-            {"role": msg.role, "content" : msg.content}
-            for msg in self.messages.order_by("created_at")
-        ]
+    # def __str__(self):
+    #     return [
+    #         {"role": msg.role, "content" : msg.content}
+    #         for msg in self.messages.order_by("created_at")
+    #     ]
     
 
 class Messages(models.Model):
@@ -59,6 +59,7 @@ class Messages(models.Model):
     ]
 
     converstations = models.ForeignKey(
+        Converstations,
         on_delete=models.CASCADE,
         related_name='messages',
     )
@@ -69,3 +70,5 @@ class Messages(models.Model):
 
     def __str__(self):
         return f"{self.role} : {self.content[:50]}"
+    
+

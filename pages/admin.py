@@ -1,5 +1,7 @@
 from django.contrib import admin
-from .models import subscription
+from .models import subscription,subscriptionOrder,Converstations,Messages
 # Register your models here.
 
-admin.site.register(subscription)
+models_list = [subscription,subscriptionOrder,Converstations,Messages]
+
+admin.site.register(models_list)
