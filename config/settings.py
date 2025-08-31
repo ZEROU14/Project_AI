@@ -34,7 +34,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # local apps
     'core',
+    'pages',
+    'component',
+    
+    # third party
     'debug_toolbar',
     'rest_framework',
     'djoser',
@@ -134,12 +140,12 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = '587'
-EMAIL_HOST_USER = env('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
-EMAIL_USE_TLS = True 
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = '587'
+# EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+# EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+# EMAIL_USE_TLS = True 
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -160,9 +166,11 @@ SIMPLE_JWT = {
 }
 
 AUTHENTICATION_BACKENDS = (
-    'social_core.backends.google.GoogleOAuth2',
+    # 'social_core.backends.google.GoogleOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
+
+
 
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = env('CLIENT_ID')
@@ -179,6 +187,7 @@ SOCIAL_AUTH_ALLOWED_REDIRECT_URIS = [
     'http://127.0.0.1:8000/api/auth/o/google-oauth2',
     'http://localhost:8000/api/auth/o/google-oauth2/',
     'http://localhost:8000/api/auth/o/google-oauth2',
+
 ]
 
 SOCIAL_AUTH_PIPELINE = (
