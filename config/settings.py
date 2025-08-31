@@ -1,11 +1,13 @@
 from datetime import timedelta
 from pathlib import Path
 import environ
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 env = environ.Env()
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -169,19 +171,22 @@ AUTHENTICATION_BACKENDS = (
 )
 
 
-# SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = env('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
-# SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = env('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
-# SOCIAL_AUTH_RAISE_EXCEPTIONS = False
 
-# SOCIAL_AUTH_GOOGLE_OAUTH_SCOPE = [
-#     'https://www.googleapis.com/auth/userinfo.email',
-#     'https://www.googleapis.com/auth/userinfo.profile',
-# ]
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = env('CLIENT_ID')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = env('CLIENT_SECRET')
+SOCIAL_AUTH_RAISE_EXCEPTIONS = False
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
+    'https://www.googleapis.com/auth/userinfo.email',
+    'https://www.googleapis.com/auth/userinfo.profile',
+]
 
 SOCIAL_AUTH_ALLOWED_REDIRECT_URIS = [
-    # 'http://localhost:8000/api/auth/social/o/google-oauth2/',
-    'http://localhost:8000',
-    'http://127.0.0.1:8000',
+    'http://127.0.0.1:8000/api/auth/o/google-oauth2/',
+    'http://127.0.0.1:8000/api/auth/o/google-oauth2',
+    'http://localhost:8000/api/auth/o/google-oauth2/',
+    'http://localhost:8000/api/auth/o/google-oauth2',
 
 ]
 
@@ -219,8 +224,11 @@ DJOSER = {
     'SEND_ACTIVATION_EMAIL': True,
     'SOCIAL_AUTH_TOKEN_STRATEGY': 'djoser.social.token.jwt.TokenStrategy',
     'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': [
-        'http://localhost:8000/api/auth/social/o/google-oauth2/',
-        'http://127.0.0.1:8000/api/auth/social/o/google-oauth2/',
+        # Backend callbacks
+        'http://127.0.0.1:8000/api/auth/o/google-oauth2/',
+        'http://127.0.0.1:8000/api/auth/o/google-oauth2',
+        'http://localhost:8000/api/auth/o/google-oauth2/',
+        'http://localhost:8000/api/auth/o/google-oauth2',
     ],
     'SERIALIZERS': {
         'user_create': 'core.serializers.UserCreateSerializer',

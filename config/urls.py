@@ -24,6 +24,5 @@ urlpatterns = [
     path('api/components',include('component.urls')),
     path('api/auth/', include('djoser.urls')),
     path('api/auth/', include('djoser.urls.jwt')),
-    # path('accounts/', include('allauth.urls')),
-    # path('api/auth/social/', include('social_django.urls', namespace='social')),
+    path('api/auth/', include('djoser.social.urls')),
 ] + debug_toolbar_urls()
