@@ -6,12 +6,12 @@ class subscription(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
     local_price = models.DecimalField(decimal_places=2,max_digits=6)
-    stripe_price_id = models.CharField(max_length=200 , unique=True)
+    stripe_price_id = models.CharField(max_length=200 , unique=True,null=True,blank=True)
 
 
 class subscriptionOrder(models.Model):
     STATUS_CHOICES = [
-        ('activ','ACTIVE'),
+        ('active','ACTIVE'),
         ('inactive',"InACTIVE"),
         
     ]
@@ -22,9 +22,9 @@ class subscriptionOrder(models.Model):
     )
 
     plan = models.ForeignKey(subscription,on_delete=models.CASCADE)
-    stripe_subscription_id = models.CharField(max_length=255,unique=True)
+    stripe_subscription_id = models.CharField(max_length=255,unique=True,null=True)
     status = models.CharField(choices=STATUS_CHOICES,default=STATUS_CHOICES[1],max_length=10)
-    current_period_end = models.DateTimeField()
+    current_period_end = models.DateTimeField(null=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -37,17 +37,14 @@ class Converstations(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name='converstations'
+        related_name='conversations'
     )
     title = models.CharField(max_length=255,blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     upadeted_at = models.DateTimeField(auto_now=True)
 
-    # def __str__(self):
-    #     return [
-    #         {"role": msg.role, "content" : msg.content}
-    #         for msg in self.messages.order_by("created_at")
-    #     ]
+    def __str__(self):
+        return self.title
     
 
 class Messages(models.Model):

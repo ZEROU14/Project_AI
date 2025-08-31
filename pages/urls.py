@@ -1,16 +1,12 @@
-from rest_framework import routers
-from .views import SubViewSet , ConverstationViewSet,MessagesViewSet
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import SubViewSet, SubOrderViewSrt,ConverstationViewSet
 
+router = DefaultRouter()
+router.register(r"subscriptions", SubViewSet, basename="subscription")
+router.register(r"subscription-orders", SubOrderViewSrt, basename="subscription-order")
+router.register(r"conversations", ConverstationViewSet, basename="conversation")
 
-routers = routers.DefaultRouter()
-
-
-routers.register("Subscription" , SubViewSet,basename='sub')
-routers.register("Converstations", ConverstationViewSet,basename='Conv')
-routers.register("Converstations", MessagesViewSet,basename='messages')
-
-
-
-urlpatterns = routers.urls
-
-
+urlpatterns = [
+    path("api/", include(router.urls)),
+]
